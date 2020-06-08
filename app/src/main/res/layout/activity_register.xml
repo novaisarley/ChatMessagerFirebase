@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@drawable/bt_login_rounded"
-        android:text="Cadastrar"
+        android:text="@string/cadastrar"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +89,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/activity_register_iv_circle_img"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:civ_border_color="@color/btBlue"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_register_bt_select_photo"
+        app:layout_constraintEnd_toEndOf="@+id/activity_register_bt_select_photo"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_bt_select_photo"
+        app:layout_constraintTop_toTopOf="@+id/activity_register_bt_select_photo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

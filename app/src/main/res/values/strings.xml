@@ -9,4 +9,6 @@
     <string name="j_tenho_conta_fazer_login">Já tem conta? Faça login</string>
     <string name="senha_seis_caracteres">A senha deve conter pelo menos 6 caracteres</string>
     <string name="foto">Foto</string>
+    <string name="sucesso_cadastro">Cadastro realizado com sucesso</string>
+    <string name="cadastrar">Cadastrar</string>
 </resources>
