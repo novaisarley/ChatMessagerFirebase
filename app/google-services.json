@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "345910559736",
+    "firebase_url": "https://chat-messager-demo.firebaseio.com",
+    "project_id": "chat-messager-demo",
+    "storage_bucket": "chat-messager-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345910559736:android:1c6233f457f3896e414c0d",
+        "android_client_info": {
+          "package_name": "com.br.arley.chatfirebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345910559736-c5agme7g7sqcku6h5610qok1or0m7qll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaGUWHtime_BAcTtsTJoZBnWeZ0v7mzfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345910559736-c5agme7g7sqcku6h5610qok1or0m7qll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
