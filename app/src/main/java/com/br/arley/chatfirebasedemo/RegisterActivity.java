@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister, btSelectPhoto;
     TextView tvGoLogin;
     ImageView imgPhoto;
+    ProgressBar progressBar;
     Uri selectedUri = null;
     
     @Override
@@ -82,6 +86,8 @@ public class RegisterActivity extends AppCompatActivity {
         btSelectPhoto = findViewById(R.id.activity_register_bt_select_photo);
         tvGoLogin = findViewById(R.id.activity_register_tv_go_login);
         imgPhoto = findViewById(R.id.activity_register_iv_circle_img);
+        progressBar = findViewById(R.id.activity_register_progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void createUser(){
@@ -94,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else{
             if (password.length()>=6){
+                progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -104,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         saveUserInFirebase();
                                     }else{
                                         Toast.makeText(getApplicationContext(), R.string.sucesso_cadastro, Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                         finish();
                                     }
@@ -116,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 Log.d("Teste", e.getMessage());
                                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-
                             }
                         });
             }
@@ -138,10 +145,30 @@ public class RegisterActivity extends AppCompatActivity {
                         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Log.d("Teste", uri.toString());
-                                Toast.makeText(getApplicationContext(), R.string.sucesso_cadastro, Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                finish();
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                String username = edtName.getText().toString();
+                                String profileUrl = uri.toString();
+
+                                User user = new User(uid, username, profileUrl);
+
+                                FirebaseFirestore.getInstance().collection("users")
+                                        .add(user)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d("Teste", documentReference.getId());
+                                                Toast.makeText(getApplicationContext(), R.string.sucesso_cadastro, Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(RegisterActivity.this, MessagesActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("Teste", e.getMessage());
+                                            }
+                                        });
                             }
                         });
                     }
@@ -178,4 +205,6 @@ public class RegisterActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
 
     }
+
+
 }
