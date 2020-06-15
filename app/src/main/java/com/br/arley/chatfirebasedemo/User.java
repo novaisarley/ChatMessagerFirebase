@@ -5,6 +5,10 @@ public class User {
     private String username;
     private String profileUrl;
 
+    public User() {
+
+    }
+
     public User(String uid, String username, String profileUrl) {
         this.uid = uid;
         this.username = username;

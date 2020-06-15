@@ -42,7 +42,7 @@ public class MessagesActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_contacts:
-                Toast.makeText(MessagesActivity.this, "Contatos", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MessagesActivity.this, ContactsActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
